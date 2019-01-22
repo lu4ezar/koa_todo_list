@@ -1,0 +1,11 @@
+<h1 class="display-4 mb-4"><%- title %></h1>
+<p>Logged as <%- user.username %></p>
+<ul class="list-group">
+	<% tasks.forEach(task => { %>
+	<li class="list-group-item"><%= task.task %>
+	<% if (user.isAdmin) { %>
+		<div>Owner: <%- task.owner %></div>
+	<% } %>
+	</li>
+	<% }); %>
+</ul>
