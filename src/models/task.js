@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const TaskSchema = new mongoose.Schema(
 	{
 		owner: String,
-		task: String,
+		task: {
+			type: String,
+			required: true
+		},
 		priority: {
 			type: String,
 			default: 'normal',

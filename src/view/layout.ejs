@@ -28,7 +28,15 @@
 		<title>TodoList App</title>
 	</head>
 	<body>
-		<%- include partials/_navbar.html %>
-		<div class="container"><%- body %></div>
+		<%- include partials/_navbar.ejs %>
+		<div class="container">
+				<% if (locals.error.length) { %>
+					<%- include partials/_error.ejs %>
+				<% } %>
+				<% if (locals.success.length) { %>
+					<%- include partials/_success.ejs %>
+				<% } %>
+			<%- body %>
+		</div>
 	</body>
 </html>

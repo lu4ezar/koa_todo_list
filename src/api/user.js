@@ -7,11 +7,9 @@ exports.createUser = async ({username, password}) => {
 		password = bcrypt.hashSync(password, salt);
 		const newUser = new User({username, password});
 		await newUser.save();
-		console.log(`user created: ${newUser.username}`);
 		return newUser;
 	} catch(err) {
-		console.log(`createUserError: ${err}`);
-		// return null;
+		throw err;
 	}
 }
 
@@ -19,9 +17,8 @@ exports.createUser = async ({username, password}) => {
 exports.fetchUser = async ({username}) => {
 	try {
 		const user = await User.findOne({ 'username': username});
-		console.log(`User ${username} found`);
 		return user;
 	} catch (err) {
-		console.log(err);
+		throw err;
 	}
 }

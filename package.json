@@ -12,6 +12,7 @@
     "koa-passport": "^4.1.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.10.1",
+    "mocha": "^5.2.0",
     "mongoose": "^5.4.3",
     "passport-local": "^1.0.0"
   },
@@ -20,9 +21,13 @@
     "koa-logger": "^3.2.0",
     "supertest": "^3.4.2"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "scripts": {
     "start": "nodemon index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll",
+    "debug": "DEBUG=koa* nodemon index"
   },
   "author": "Gi",
   "license": "ISC"

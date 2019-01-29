@@ -5,20 +5,18 @@ const passport = require('koa-passport');
 const Task = require('../api/task');
 const User = require('../api/user');
 
-const flash = require('koa-better-flash');
-
-
 // common routes
+
 router
 	.get('/login',
-		async ctx => ctx.render('login')
+		async ctx => ctx.render('/login')
 	)
 	.post('/login',
 		passport.authenticate('local', {
 			successRedirect: '/',
 			failureRedirect: '/login',
-			successFlash: 'Welcome!',
-			failureFlash: 'Not welcome'
+			successFlash: 'Welcome back!',
+			failureFlash: true
 		})
 	);
 
@@ -28,31 +26,18 @@ router
 	)
 	.post('/register',
 		async ctx => {
-			const user = await User.createUser(ctx.request.body);
-			if (user) {
+			try{
+				const user = await User.createUser(ctx.request.body);
 				ctx.login(user);
+				ctx.flash('success', `Welcome new user ${user.username}!`)
 				ctx.redirect('/');
-			} else {
-				ctx.flash('info', [ 'hi', 'hello', 'good morning' ]);
-				ctx.redirect('/login');
+			} catch(err) {
+				ctx.flash('error', err.message);
+				ctx.redirect('/register');
 			}
 		}
 	);
-	// test
-	/*.post('/register', async ctx => {
-		const user = await User.createUser(ctx.request.body);
-		return passport.authenticate('local', (err, user, info, status) => {
-    		if (user) {
-				ctx.login(user);
-				ctx.redirect('/');
-    		} else {
-				ctx.status = 400;
-				ctx.body = { status: 'error' };
-    		}
-		})(ctx);
-	});*/
-
-router.get('/error', async ctx => ctx.render('error'));
+	
 router.get('/favicon.ico', ctx => ctx.status = 204);
 
 
@@ -84,8 +69,14 @@ router
 	)
 	.post('/add',
 		async ctx => {
-			await Task.createTask(ctx.state.user.username, ctx.request.body.task);
-			ctx.redirect('/');
+			try {
+				const task = await Task.createTask(ctx.state.user.username, ctx.request.body.task);
+				ctx.flash('success', `${task.task} was added!`);
+				ctx.redirect('/');
+			} catch(err) {
+				ctx.flash('error', err.message);
+				ctx.redirect('/add');
+			}
 		}
 	)
 	.get('/logout',

@@ -4,9 +4,9 @@ exports.createTask = async ( owner, task ) => {
 	try {
 		const newTask  = new Task({owner, task});
 		await newTask.save();
-		console.log(`Success! Added ${newTask.task}`);
+		return newTask;
 	} catch(err) {
-		console.log(`saveTaskError: ${err}`);
+		throw err;
 	}
 }
 
@@ -17,6 +17,8 @@ exports.getTasks = async (ctx) => {
 		const tasks = await Task.find({ 'owner': target});		
 		return tasks;
 	} catch(err) {
+		// TODO
+		// throw err;
 		console.log(`getTasksError: ${err}`);
 		return null;
 	}
