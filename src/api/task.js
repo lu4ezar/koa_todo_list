@@ -2,7 +2,7 @@ const Task = require('../models/task');
 
 exports.createTask = async (owner, task) => {
 	try {
-		const newTask = new Task({ owner, task });
+		const newTask = new Task({ owner, ...task });
 		await newTask.save();
 		return newTask;
 	} catch (err) {
@@ -14,12 +14,21 @@ exports.getTasks = async ctx => {
 	try {
 		const { user } = ctx.state;
 		const target = user.isAdmin ? /.*/ : user.username;
-		const tasks = await Task.find({ owner: target });
+		let search = { owner: target };
+		const query = helper(ctx.query);
+		search = {...search, ...query};
+		let tasks = await Task.find(search);
 		return tasks;
 	} catch (err) {
-		// TODO
-		// throw err;
-		console.log(`getTasksError: ${err}`);
-		return null;
+		throw err;
 	}
 };
+
+const helper = (query) => {
+	Object.keys(query).map(prop => {
+		if (!query[prop]) {
+			delete(query[prop]);
+		};
+	});
+	return query;
+}

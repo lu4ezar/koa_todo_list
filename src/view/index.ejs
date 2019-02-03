@@ -1,11 +1,42 @@
 <h1 class="display-4 mb-4"><%- title %></h1>
 <p>Logged as <%- user.username %></p>
+<form method="GET" action="/"  class="float-right">
+	<div class="container">
+		<div class="form-group">
+			<label for="status"><span class="fas fa-filter"></span>Status</label>
+			<select class="form-control" name="status" id="status" multiple="multiple">
+				<option value="new" <% if (query.status && query.status.includes("new")) { %>selected<% } %> >New</option>
+				<option value="in work" <% if (query.status && query.status.includes("in work")) { %>selected<% } %> >In work</option>
+				<option value="done" <% if (query.status && query.status.includes("done")) { %>selected<% } %> >Done</option> 
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="priority"><span class="fas fa-filter"></span>Priority</label>
+			<select class="form-control" name="priority" id="priority" multiple="multiple">
+				<option value="low" <% if (query.priority && query.priority.includes("low")) { %>selected<% } %> >Low</option>
+				<option value="normal" <% if (query.priority && query.priority.includes("normal")) { %>selected<% } %> >Normal</option>
+				<option value="high" <% if (query.priority && query.priority.includes("high")) { %>selected<% } %> >High</option>
+			</select>
+		</div>
+	</div>
+</form>
 <ul class="list-group">
 	<% tasks.forEach(task => { %>
 	<li class="list-group-item"><%= task.task %>
-	<% if (user.isAdmin) { %>
-		<div>Owner: <%- task.owner %></div>
-	<% } %>
+		<% if (user.isAdmin) { %>
+			<div>Owner: <%- task.owner %></div>
+		<% } %>
 	</li>
 	<% }); %>
 </ul>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+		$('#status, #priority').multiselect({
+			buttonWidth: '160px',
+			buttonClass: 'btn btn-dark',
+			includeResetOption: true,
+			onDropdownHide: (e) => $('form').submit()
+		});
+    });
+</script>

@@ -5,6 +5,7 @@ const passport = require('koa-passport');
 const Task = require('../api/task');
 const User = require('../api/user');
 
+
 // common routes
 
 router
@@ -35,6 +36,7 @@ router
 
 router.get('/favicon.ico', ctx => (ctx.status = 204));
 
+
 // protected routes
 
 async function restrictAccess(ctx, next) {
@@ -50,10 +52,12 @@ router
 	.get('/', async ctx => {
 		const tasks = await Task.getTasks(ctx);
 		const { user } = ctx.state;
+		let { query } = ctx;
 		return ctx.render('/index', {
 			user: user,
 			title: 'Tasks',
-			tasks: tasks
+			tasks: tasks,
+			query: query
 		});
 	})
 	.get('/add', async ctx => ctx.render('add'))
@@ -61,7 +65,7 @@ router
 		try {
 			const task = await Task.createTask(
 				ctx.state.user.username,
-				ctx.request.body.task
+				ctx.request.body
 			);
 			ctx.flash('success', `${task.task} was added!`);
 			ctx.redirect('/');

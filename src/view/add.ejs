@@ -3,7 +3,26 @@
 </h1>
 <form action="/add" method="POST">
 	<div class="form-group">
-		<input type="text" name="task" class="form-control form-control-lg" placeholder="Add task">
+		<input type="text" name="task" class="form-control form-control-lg" placeholder="Add task" required>
+	</div>
+	<div class="row">
+		<div class="form-group m-2">
+			<label for="statusSelect">Status</label>
+			<select class="form-control" name="status">
+				<option value="new">New</option>
+				<option value="in work">In work</option>
+				<option value="done">Done</option>
+			</select>
+		</div>
+
+		<div class="form-group m-2">
+			<label for="prioritySelect">Priority</label>
+			<select class="form-control" name="priority">
+				<option value="low">Low</option>
+				<option value="normal">Normal</option>
+				<option value="high">High</option>
+			</select>
+		</div>
 	</div>
 	<input type="submit" value="Add" class="btn btn-dark btn-lg">
 	<a href="/" class="btn btn-danger btn-lg">Cancel</a>
