@@ -13,7 +13,7 @@
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.3",
     "mocha": "^5.2.0",
-    "mongoose": "^5.7.0",
+    "mongoose": "^5.7.5",
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
