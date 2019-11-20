@@ -6,7 +6,6 @@ To-do list with KoaJS, MongoDB and Bootstrap
 ```
 $ git clone https://github.com/lu4ezar/koa_todo_list
 $ cd koa_todo_list
-// start mongoDB server
 $ sudo service mongod start
 $ npm start
 ```
