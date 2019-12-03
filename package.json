@@ -25,7 +25,8 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "start": "nodemon index",
+    "start": "node index",
+    "start-dev": "nodemon index",
     "test": "jest --watchAll",
     "debug": "DEBUG=koa* nodemon index"
   },
