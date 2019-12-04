@@ -9,22 +9,20 @@ const path = require('path');
 const flash = require('koa-better-flash');
 
 if (process.env.NODE_ENV !== 'test') {
-	app.use(logger());
+  app.use(logger());
 }
 
-app
-	.use(err)
-	.use(bodyParser());
+app.use(err).use(bodyParser());
 
 require('./db');
 
 // view
 const render = require('koa-ejs');
 render(app, {
-	root: path.join(__dirname, '/view'),
-	layout: 'layout',
-	viewExt: 'ejs',
-	// debug: true
+  root: path.join(__dirname, '/view'),
+  layout: 'layout',
+  viewExt: 'ejs'
+  // debug: true
 });
 
 // sessions
@@ -35,9 +33,9 @@ app.use(session({}, app));
 // flash
 app.use(flash());
 app.use(async (ctx, next) => {
-	ctx.state.error = ctx.flash('error') || [];
-	ctx.state.success = ctx.flash('success') || [];
-	return next();
+  ctx.state.error = ctx.flash('error') || [];
+  ctx.state.success = ctx.flash('success') || [];
+  return next();
 });
 
 // authentication
@@ -50,6 +48,5 @@ app.use(passport.session());
 const { routes, allowedMethods } = require('./routes');
 app.use(routes());
 app.use(allowedMethods());
-
 
 module.exports = app;
