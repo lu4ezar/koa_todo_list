@@ -8,7 +8,7 @@ const err = require('./middleware/error');
 const path = require('path');
 const flash = require('koa-better-flash');
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production') {
   app.use(logger());
 }
 

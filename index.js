@@ -1,4 +1,8 @@
 const app = require('./src/app.js');
-const server = app.listen(3000, () => console.log(`http://localhost:3000`));
+let port = process.env.PORT;
+if (port == null || port == '') {
+  port = 3000;
+}
+const server = app.listen(port, () => console.log(`port = ${port}`));
 
 module.exports = server;
