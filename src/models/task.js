@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const TaskSchema = new mongoose.Schema(
   {
@@ -9,13 +9,13 @@ const TaskSchema = new mongoose.Schema(
     },
     priority: {
       type: String,
-      default: 'normal',
-      enum: ['low', 'normal', 'high']
+      default: "normal",
+      enum: ["low", "normal", "high"]
     },
     status: {
       type: String,
-      default: 'new',
-      enum: ['new', 'in work', 'done']
+      default: "new",
+      enum: ["new", "in work", "done"]
     }
   },
   {
@@ -23,4 +23,4 @@ const TaskSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('Task', TaskSchema);
+module.exports = mongoose.model("Task", TaskSchema);

@@ -1,9 +1,10 @@
-const passport = require('koa-passport');
-const User = require('./models/user');
-const bcrypt = require('bcryptjs');
+const passport = require("koa-passport");
+const bcrypt = require("bcryptjs");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("./models/user");
 
 passport.serializeUser((user, done) => {
-  done(null, user._id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
@@ -16,19 +17,17 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-const LocalStrategy = require('passport-local').Strategy;
-
 passport.use(
-  new LocalStrategy(function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username }, (err, user) => {
       if (err) {
         return done(err, { message: err.message });
       }
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: "Incorrect username." });
       }
       if (!bcrypt.compareSync(password, user.password)) {
-        return done(null, false, { message: 'Incorrect password.' });
+        return done(null, false, { message: "Incorrect password." });
       }
       return done(null, user);
     });
