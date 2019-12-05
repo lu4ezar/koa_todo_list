@@ -1,6 +1,10 @@
 {
-	"url": "localhost:27017",
-	"database": "test",
-	"user": "",
-	"password": ""
+  "development": {
+    "url": "localhost",
+    "port": "27017",
+    "database": "test",
+    "user": "",
+    "password": ""
+  },
+  "production": {}
 }

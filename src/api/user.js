@@ -2,11 +2,11 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
-exports.createUser = async ({ username, password }) => {
+exports.createUser = async ({ username, password: passwordString }) => {
   try {
     const salt = bcrypt.genSaltSync(10);
-    const saltedPassword = bcrypt.hashSync(password, salt);
-    const newUser = new User({ username, saltedPassword });
+    const password = bcrypt.hashSync(passwordString, salt);
+    const newUser = new User({ username, password });
     await newUser.save();
     return newUser;
   } catch (err) {

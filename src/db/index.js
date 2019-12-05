@@ -1,8 +1,15 @@
 /* eslint-disable no-console */
 const mongoose = require("mongoose");
-const { url, database } = require("./config.json");
+const config = require("./config.json");
 
-const dbPath = `mongodb://${url}/${database}`;
+const defaultConfig = config.development;
+const environment = process.env.NODE_ENV || "development";
+const environmentConfig = config[environment];
+const finalConfig = { ...defaultConfig, ...environmentConfig };
+const { url, port, database } = finalConfig;
+
+const dbPath =
+  process.env.PROD_MONGODB || `mongodb://${url}:${port}/${database}`;
 
 mongoose
   .connect(dbPath, { useNewUrlParser: true })
@@ -14,7 +21,9 @@ mongoose
 
 const db = mongoose.connection;
 
-db.once("open", () => console.log("db connection ok"))
+db.once("open", () =>
+  console.log(`db connection ok, db: ${database}, dbPath: ${dbPath}`)
+)
   .on("disconnected", () => console.log("db disconnected"))
   .on("close", () => console.log("Database connection closed."));
 process.on("SIGINT", () => {
@@ -27,7 +36,5 @@ process.on("SIGINT", () => {
 exports.dropCollection = col => {
   db.dropCollection(col)
     .then(() => console.log(`collection ${col} was dropped`))
-    .catch(err =>
-      console.log(`collection was not dropped, there is an error: ${err}`)
-    );
+    .catch(err => console.log(`collection was not dropped, error: ${err}`));
 };
