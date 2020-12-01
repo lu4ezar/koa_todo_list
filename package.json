@@ -14,7 +14,7 @@
 
     "koa-session": "^6.1.0",
     "koa-router": "^9.4.0",
-    "mocha": "^8.2.0",
+    "mocha": "^8.2.1",
     "mongoose": "^5.9.18",
     "passport-local": "^1.0.0"
   },
