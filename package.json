@@ -14,14 +14,14 @@
 
     "koa-session": "^6.1.0",
     "koa-router": "^10.0.0",
-    "mocha": "^8.2.1",
     "mongoose": "^5.11.18",
+    "mocha": "^8.3.0",
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "7.19.0",
+    "eslint": "7.21.0",
     "eslint-config-airbnb-base": "14.2.1",
-    "eslint-config-prettier": "7.2.0",
+    "eslint-config-prettier": "8.1.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-prettier": "3.3.1",
     "jest": "26.6.3",
