@@ -13,7 +13,7 @@
     "koa-passport": "^4.1.4",
     "koa-session": "^6.2.0",
     "koa-router": "^10.1.1",
-    "mongoose": "^6.0.2",
+    "mongoose": "^6.0.4",
     "mocha": "^9.1.1",
     "passport-local": "^1.0.0"
   },
