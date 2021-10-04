@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "koa": "^2.13.1",
+    "koa": "^2.13.3",
     "koa-better-flash": "0.0.4",
     "koa-body": "^4.2.0",
     "koa-ejs": "^4.3.0",
@@ -14,7 +14,7 @@
     "koa-session": "^6.2.0",
     "koa-router": "^10.1.1",
     "mongoose": "^6.0.8",
-    "mocha": "^9.1.1",
+    "mocha": "^9.1.2",
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
